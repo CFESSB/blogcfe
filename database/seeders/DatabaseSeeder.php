@@ -2,8 +2,19 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
+use App\Models\Post;
+use App\Models\Tag;
+use App\Models\User;
+
+use GuzzleHttp\Promise\Create;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+
+
+use Illuminate\Support\Facades\Storage;
+
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,11 +25,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Category::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        Storage::makeDirectory('posts');
+
+
+        //$this ->call(UserSeeder::class);
+        User::factory(10)->create();
+        Category::factory(4)->create();
+        Tag::factory(12)->create();
+        $this->call(PostSeeder::class);
     }
 }
